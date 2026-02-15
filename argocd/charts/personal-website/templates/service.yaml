@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "personal_website.fullname" . }}
+  name: {{ include "personal-website.fullname" . }}
   labels:
-    {{- include "personal_website.labels" . | nindent 4 }}
+    {{- include "personal-website.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "personal_website.selectorLabels" . | nindent 4 }}
+    {{- include "personal-website.selectorLabels" . | nindent 4 }}

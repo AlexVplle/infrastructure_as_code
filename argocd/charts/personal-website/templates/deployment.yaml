@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "personal_website.fullname" . }}
+  name: {{ include "personal-website.fullname" . }}
   labels:
-    {{- include "personal_website.labels" . | nindent 4 }}
+    {{- include "personal-website.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "personal_website.selectorLabels" . | nindent 6 }}
+      {{- include "personal-website.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "personal_website.labels" . | nindent 8 }}
+        {{- include "personal-website.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

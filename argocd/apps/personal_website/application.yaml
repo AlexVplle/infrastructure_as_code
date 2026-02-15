@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/alexvplle/infrastructure_as_code
     targetRevision: main
-    path: argocd/charts/personal_website
+    path: argocd/charts/personal-website
   destination:
     server: https://kubernetes.default.svc
     namespace: personal-website

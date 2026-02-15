@@ -2,16 +2,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "personal_website.fullname" . }}
+  name: {{ include "personal-website.fullname" . }}
   labels:
-    {{- include "personal_website.labels" . | nindent 4 }}
+    {{- include "personal-website.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   {{- with .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: {{ . }}
   {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
@@ -35,7 +35,7 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "personal_website.fullname" $ }}
+                name: {{ include "personal-website.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
