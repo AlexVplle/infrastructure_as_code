@@ -1,0 +1,36 @@
+replicaCount: 1
+image:
+  repository: alexvplle/personal-website
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  hosts:
+    - host: alexvplle.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.alexvplle.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: 
+    - secretName: alexvplle-website-tls
+      hosts:
+        - alexvplle.com
+        - www.alexvplle.com
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
