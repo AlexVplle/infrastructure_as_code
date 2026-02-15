@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repo: https://github.com/alexvplle/infrastructure_as_code
+    repoURL: https://github.com/alexvplle/infrastructure_as_code
     targetRevision: main
     path: argocd/apps
     directory:
