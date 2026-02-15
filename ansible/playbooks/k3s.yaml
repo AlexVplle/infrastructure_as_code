@@ -1,0 +1,35 @@
+- name: k3s install
+  hosts: vps
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Download and install k3s
+      shell: |
+        curl -sfL https://get.k3s.io | sh -s - \
+          --write-kubeconfig-mode={{ k3s.write_kubeconfig_mode }} \
+          --write-kubeconfig-group={{ k3s.write_kubeconfig_group }}
+      args:
+        creates: "{{ k3s.binary_path }}"
+
+    - name: Add user to k3s group
+      user:
+        name: "{{ ansible_user }}"
+        groups: "{{ k3s.write_kubeconfig_group }}"
+        append: true
+
+    - name: Create .kube directory for user
+      file:
+        path: "/home/{{ ansible_user }}/.kube"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+
+    - name: Copy k3s config to user .kube
+      copy:
+        src: "{{ k3s.config_path }}"
+        dest: "{{ kube_config_path_home }}"
+        remote_src: true
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0600'

@@ -1,0 +1,36 @@
+---
+- name: Install and configure ArgoCD
+  hosts: vps
+  become: true
+  gather_facts: false
+  
+  tasks:
+    - name: Add Argo Helm repository
+      command: helm repo add argo https://argoproj.github.io/argo-helm
+      become_user: "{{ ansible_user }}"
+      changed_when: false
+      failed_when: false
+    
+    - name: Update Helm repositories
+      command: helm repo update
+      become_user: "{{ ansible_user }}"
+      changed_when: false
+    
+    - name: Install/Upgrade ArgoCD via Helm
+      command: >
+        helm upgrade --install argocd argo/argo-cd
+        --namespace argocd
+        --create-namespace
+        --set configs.params.server\.insecure=true
+        --set configs.secret.argocdServerAdminPassword="{{ vault_argocd_admin_password_hash }}"
+        --set server.ingress.enabled=true
+        --set server.ingress.ingressClassName=traefik
+        --set server.ingress.hostname="{{ argocd.url }}"
+        --set server.ingress.hosts[0]="{{ argocd.url }}"
+        --set server.ingress.tls[0].secretName=argocd-tls
+        --set server.ingress.tls[0].hosts[0]="{{ argocd.url }}"
+        --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/router\.entrypoints"=websecure
+        --force-conflicts
+      become_user: "{{ ansible_user }}"
+      register: helm_result
+      changed_when: "'has been upgraded' in helm_result.stdout or 'has been installed' in helm_result.stdout"

@@ -1,0 +1,26 @@
+# Environment variables
+.env
+*.env
+!.env.example
+
+# Ansible
+*.retry
+.vault_pass
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+secrets/
+*.key
+*.pem
+*.crt
+!*.example.*

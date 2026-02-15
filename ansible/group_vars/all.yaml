@@ -1,0 +1,3 @@
+domain_name: "{{ vault_domain_name }}"
+base_domain: "{{ vault_domain_name }}"
+kube_config_path_home: "/home/{{ ansible_user }}/.kube/config"

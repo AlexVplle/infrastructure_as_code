@@ -1,0 +1,3 @@
+helm: 
+  binary_path: /usr/local/bin/helm
+

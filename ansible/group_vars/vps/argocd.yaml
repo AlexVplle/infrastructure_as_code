@@ -1,0 +1,4 @@
+argocd:
+  subdomain: argocd
+  url: "argocd.{{ domain_name }}"
+  admin_password: "{{ vault_argocd_admin_password }}"

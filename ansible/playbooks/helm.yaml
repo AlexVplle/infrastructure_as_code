@@ -1,0 +1,10 @@
+- name: Install Helm
+  hosts: vps
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Download and install Helm
+      shell: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | bash
+      args:
+        creates: "{{ helm.binary_path }}"
