@@ -1,3 +1,4 @@
+---
 k3s:
   binary_path: /usr/local/bin/k3s
   config_path: /etc/rancher/k3s/k3s.yaml

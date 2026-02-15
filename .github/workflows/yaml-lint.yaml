@@ -1,10 +1,11 @@
+---
 name: YAML Lint
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -19,6 +20,8 @@ jobs:
           file_or_dir: .
           config_data: |
             extends: default
+            ignore: |
+              argocd/charts/*/templates/
             rules:
               line-length:
                 max: 120
@@ -27,3 +30,9 @@ jobs:
                 spaces: 2
               truthy:
                 allowed-values: ['true', 'false', 'on']
+              document-start:
+                level: warning
+              trailing-spaces:
+                level: error
+              empty-lines:
+                level: warning

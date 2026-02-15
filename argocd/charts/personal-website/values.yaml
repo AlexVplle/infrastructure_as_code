@@ -1,3 +1,4 @@
+---
 replicaCount: 1
 image:
   repository: alexvplle/personal-website
@@ -22,7 +23,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: 
+  tls:
     - secretName: alexvplle-website-tls
       hosts:
         - alexvplle.com

@@ -1,2 +1,3 @@
+---
 ansible_host: "{{ lookup('env', 'VPS_IP') }}"
 ansible_user: "{{ lookup('env', 'VPS_USER') }}"

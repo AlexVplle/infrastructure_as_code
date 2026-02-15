@@ -1,3 +1,4 @@
+---
 - name: k3s install
   hosts: vps
   become: true

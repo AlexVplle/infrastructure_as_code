@@ -1,3 +1,4 @@
+---
 - name: Install Helm
   hosts: vps
   become: true
