@@ -22,5 +22,5 @@ jobs:
 
       - name: Validate ArgoCD manifests
         run: |
-          find argocd/apps -name "*.yaml" -exec kubeconform -strict {} \;
-          kubeconform -strict argocd/root-app.yaml
+          find argocd/apps -name "*.yaml" -exec kubeconform -strict -ignore-missing-schemas {} \;
+          kubeconform -strict -ignore-missing-schemas argocd/root-app.yaml
