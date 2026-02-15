@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: personal-website
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/alexvplle/infrastructure_as_code
+    targetRevision: main
+    path: argocd/charts/personal_website
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: personal-website
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
