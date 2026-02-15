@@ -1,0 +1,25 @@
+name: Kubernetes Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install kubeconform
+        run: |
+          wget https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+          tar xf kubeconform-linux-amd64.tar.gz
+          sudo mv kubeconform /usr/local/bin/
+
+      - name: Validate ArgoCD manifests
+        run: |
+          find argocd/apps -name "*.yaml" -exec kubeconform -strict {} \;
+          kubeconform -strict argocd/root-app.yaml
