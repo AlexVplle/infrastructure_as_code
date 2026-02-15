@@ -6,18 +6,20 @@
 
   tasks:
     - name: Add Argo Helm repository
-      command: helm repo add argo https://argoproj.github.io/argo-helm
+      ansible.builtin.command: helm repo add argo https://argoproj.github.io/argo-helm
+      become: true
       become_user: "{{ ansible_user }}"
       changed_when: false
       failed_when: false
 
     - name: Update Helm repositories
-      command: helm repo update
+      ansible.builtin.command: helm repo update
+      become: true
       become_user: "{{ ansible_user }}"
       changed_when: false
 
     - name: Install/Upgrade ArgoCD via Helm
-      command: >
+      ansible.builtin.command: >
         helm upgrade --install argocd argo/argo-cd
         --namespace argocd
         --create-namespace
@@ -31,6 +33,7 @@
         --set server.ingress.tls[0].hosts[0]="{{ argocd.url }}"
         --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/router\.entrypoints"=websecure
         --force-conflicts
+      become: true
       become_user: "{{ ansible_user }}"
       register: helm_result
       changed_when: "'has been upgraded' in helm_result.stdout or 'has been installed' in helm_result.stdout"

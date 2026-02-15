@@ -1,4 +1,3 @@
----
 apiVersion: v2
 name: personal-website
 description: A Helm chart for Kubernetes

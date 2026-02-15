@@ -1,25 +1,27 @@
 ---
-- name: k3s install
+- name: K3s install
   hosts: vps
   become: true
   gather_facts: false
   tasks:
     - name: Download and install k3s
-      shell: |
+      ansible.builtin.shell: |
+        set -o pipefail
         curl -sfL https://get.k3s.io | sh -s - \
           --write-kubeconfig-mode={{ k3s.write_kubeconfig_mode }} \
           --write-kubeconfig-group={{ k3s.write_kubeconfig_group }}
       args:
         creates: "{{ k3s.binary_path }}"
+        executable: /bin/bash
 
     - name: Add user to k3s group
-      user:
+      ansible.builtin.user:
         name: "{{ ansible_user }}"
         groups: "{{ k3s.write_kubeconfig_group }}"
         append: true
 
     - name: Create .kube directory for user
-      file:
+      ansible.builtin.file:
         path: "/home/{{ ansible_user }}/.kube"
         state: directory
         owner: "{{ ansible_user }}"
@@ -27,7 +29,7 @@
         mode: '0755'
 
     - name: Copy k3s config to user .kube
-      copy:
+      ansible.builtin.copy:
         src: "{{ k3s.config_path }}"
         dest: "{{ kube_config_path_home }}"
         remote_src: true

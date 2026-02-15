@@ -4,4 +4,3 @@ k3s:
   config_path: /etc/rancher/k3s/k3s.yaml
   write_kubeconfig_mode: "640"
   write_kubeconfig_group: k3s
-

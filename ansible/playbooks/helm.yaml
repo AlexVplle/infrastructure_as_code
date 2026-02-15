@@ -5,7 +5,9 @@
   gather_facts: false
   tasks:
     - name: Download and install Helm
-      shell: |
+      ansible.builtin.shell: |
+        set -o pipefail
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | bash
       args:
         creates: "{{ helm.binary_path }}"
+        executable: /bin/bash
