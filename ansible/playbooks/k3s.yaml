@@ -36,3 +36,21 @@
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
         mode: '0600'
+
+    - name: Configure Traefik to redirect HTTP to HTTPS
+      ansible.builtin.copy:
+        dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+        mode: '0600'
+        content: |
+          apiVersion: helm.cattle.io/v1
+          kind: HelmChartConfig
+          metadata:
+            name: traefik
+            namespace: kube-system
+          spec:
+            valuesContent: |-
+              ports:
+                web:
+                  redirectTo:
+                    port: websecure
+                    permanent: true
