@@ -23,7 +23,7 @@
         helm upgrade --install argocd argo/argo-cd
         --namespace argocd
         --create-namespace
-        --set configs.params.server\.insecure=true
+        --set configs.params.server\\.insecure=true
         --set configs.secret.argocdServerAdminPassword="{{ vault_argocd_admin_password_hash }}"
         --set server.ingress.enabled=true
         --set server.ingress.ingressClassName=traefik
@@ -32,6 +32,9 @@
         --set server.ingress.tls[0].secretName=argocd-tls
         --set server.ingress.tls[0].hosts[0]="{{ argocd.url }}"
         --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/router\.entrypoints"=websecure
+        --set server.ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod
+        --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/service\.serversscheme"=http
+        --set server.ingress.servicePort=http
         --force-conflicts
       become: true
       become_user: "{{ ansible_user }}"
