@@ -34,7 +34,6 @@
         --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/router\.entrypoints"=websecure
         --set server.ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-prod
         --set server.ingress.annotations."traefik\.ingress\.kubernetes\.io/service\.serversscheme"=http
-        --set server.ingress.servicePort=http
         --force-conflicts
       become: true
       become_user: "{{ ansible_user }}"
