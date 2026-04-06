@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "personal-website.fullname" . }}
+  name: {{ include "digital-garden.fullname" . }}
   labels:
-    {{- include "personal-website.labels" . | nindent 4 }}
+    {{- include "digital-garden.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "personal-website.selectorLabels" . | nindent 6 }}
+      {{- include "digital-garden.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "personal-website.labels" . | nindent 8 }}
+        {{- include "digital-garden.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

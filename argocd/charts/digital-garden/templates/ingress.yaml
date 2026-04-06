@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "personal-website.fullname" . }}
+  name: {{ include "digital-garden.fullname" . }}
   labels:
-    {{- include "personal-website.labels" . | nindent 4 }}
+    {{- include "digital-garden.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -35,7 +35,7 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "personal-website.fullname" $ }}
+                name: {{ include "digital-garden.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
