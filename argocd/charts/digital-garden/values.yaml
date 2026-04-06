@@ -1,0 +1,32 @@
+replicaCount: 1
+image:
+  repository: alexvplle/digital-garden
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: garden.alexvplle.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: digital-garden-tls
+      hosts:
+        - garden.alexvplle.com
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

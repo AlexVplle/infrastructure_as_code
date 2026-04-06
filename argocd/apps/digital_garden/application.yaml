@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: digital-garden
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myimage=alexvplle/digital-garden
+    argocd-image-updater.argoproj.io/myimage.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/myimage.helm.image-spec: image.repository:image.tag
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/alexvplle/infrastructure_as_code
+    targetRevision: main
+    path: argocd/charts/digital-garden
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: digital-garden
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
