@@ -8,7 +8,8 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: myimage=alexvplle/toktoktok
     argocd-image-updater.argoproj.io/myimage.update-strategy: newest-build
     argocd-image-updater.argoproj.io/myimage.helm.image-spec: image.repository:image.tag
-    argocd-image-updater.argoproj.io/write-back-method: argocd
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/argocd-image-updater-ssh
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   project: default
   source:
