@@ -1,0 +1,5 @@
+helm:
+  parameters:
+  - name: image.repository:image.tag
+    value: alexvplle/digital-garden:main-5184dce
+    forcestring: true
