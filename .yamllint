@@ -2,6 +2,7 @@
 extends: default
 ignore: |
   argocd/charts/*/templates/
+  argocd/charts/*/.argocd-source-*.yaml
 rules:
   line-length:
     max: 120
