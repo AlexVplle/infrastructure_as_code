@@ -3,3 +3,9 @@ helm:
   - name: image.repository:image.tag
     value: alexvplle/digital-garden:main-5184dce
     forcestring: true
+  - name: image.repository
+    value: alexvplle/digital-garden
+    forcestring: true
+  - name: image.tag
+    value: main-5184dce
+    forcestring: true
