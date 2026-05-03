@@ -1,0 +1,8 @@
+helm:
+  parameters:
+  - name: image.repository
+    value: alexvplle/personal-website
+    forcestring: true
+  - name: image.tag
+    value: main-6ba71ff
+    forcestring: true
