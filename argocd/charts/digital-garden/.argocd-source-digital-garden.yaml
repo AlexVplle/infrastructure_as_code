@@ -7,5 +7,5 @@ helm:
     value: alexvplle/digital-garden
     forcestring: true
   - name: image.tag
-    value: main-aaf1fed
+    value: main-743ff11
     forcestring: true
