@@ -39,3 +39,12 @@
       become_user: "{{ ansible_user }}"
       register: helm_result
       changed_when: "'has been upgraded' in helm_result.stdout or 'has been installed' in helm_result.stdout"
+
+    - name: Apply ArgoCD root application
+      ansible.builtin.command: kubectl apply -f -
+      args:
+        stdin: "{{ lookup('ansible.builtin.file', playbook_dir + '/../../argocd/root-app.yaml') }}"
+      become: true
+      become_user: "{{ ansible_user }}"
+      register: root_app_result
+      changed_when: "'unchanged' not in root_app_result.stdout"

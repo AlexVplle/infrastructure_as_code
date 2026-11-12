@@ -14,6 +14,10 @@
         creates: "{{ k3s.binary_path }}"
         executable: /bin/bash
 
+    - name: Create k3s group
+      ansible.builtin.group:
+        name: "{{ k3s.write_kubeconfig_group }}"
+
     - name: Add user to k3s group
       ansible.builtin.user:
         name: "{{ ansible_user }}"

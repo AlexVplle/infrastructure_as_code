@@ -1,0 +1,18 @@
+---
+firewall:
+  allowed_ports:
+    - port: "22"
+      proto: tcp
+      comment: SSH
+    - port: "80"
+      proto: tcp
+      comment: HTTP
+    - port: "443"
+      proto: tcp
+      comment: HTTPS
+    - port: "25565"
+      proto: tcp
+      comment: Minecraft
+  k3s_networks:
+    - 10.42.0.0/16
+    - 10.43.0.0/16

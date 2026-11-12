@@ -1,0 +1,20 @@
+---
+- name: Enable automatic security updates
+  hosts: vps
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Install unattended-upgrades
+      ansible.builtin.apt:
+        name: unattended-upgrades
+        update_cache: true
+
+    - name: Enable periodic updates
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+        mode: '0644'
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Unattended-Upgrade "1";
+          APT::Periodic::AutocleanInterval "7";
