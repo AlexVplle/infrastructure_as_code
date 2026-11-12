@@ -1,0 +1,17 @@
+---
+resources:
+  requests:
+    memory: 8Gi
+    cpu: 2
+  limits:
+    memory: 8Gi
+
+minecraftServer:
+  eula: "TRUE"
+  memory: 6G
+  serviceType: LoadBalancer
+
+persistence:
+  dataDir:
+    enabled: true
+    Size: 20Gi

@@ -1,0 +1,27 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: minecraft
+      repoURL: https://itzg.github.io/minecraft-server-charts
+      targetRevision: 5.3.1
+      helm:
+        valueFiles:
+          - $values/argocd/apps/minecraft/values.yaml
+    - repoURL: https://github.com/alexvplle/infrastructure_as_code
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: minecraft
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
