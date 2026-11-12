@@ -5,6 +5,8 @@
   import_playbook: fail2ban.yaml
 - name: Configure firewall
   import_playbook: ufw.yaml
+- name: Enable automatic security updates
+  import_playbook: unattended_upgrades.yaml
 - name: Deploy complete infrastructure
   import_playbook: k3s.yaml
 - name: Install Helm
