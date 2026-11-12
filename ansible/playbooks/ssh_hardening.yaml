@@ -1,0 +1,31 @@
+---
+- name: Harden SSH
+  hosts: vps
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Write SSH hardening drop-in
+      ansible.builtin.copy:
+        dest: /etc/ssh/sshd_config.d/00-hardening.conf
+        mode: '0644'
+        content: |
+          PasswordAuthentication no
+          KbdInteractiveAuthentication no
+          PermitRootLogin no
+          MaxAuthTries 3
+          LoginGraceTime 30
+          X11Forwarding no
+          AllowUsers {{ ansible_user }}
+        validate: 'sshd -t -f %s'
+      notify: Restart sshd
+
+    - name: Validate full sshd configuration
+      ansible.builtin.command: sshd -t
+      changed_when: false
+
+  handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
