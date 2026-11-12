@@ -11,6 +11,10 @@ minecraftServer:
   memory: 6G
   serviceType: LoadBalancer
 
+envFrom:
+  - secretRef:
+      name: minecraft-whitelist
+
 persistence:
   dataDir:
     enabled: true
