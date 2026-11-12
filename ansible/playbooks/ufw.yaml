@@ -1,0 +1,29 @@
+---
+- name: Configure ufw firewall
+  hosts: vps
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Install ufw
+      ansible.builtin.apt:
+        name: ufw
+        update_cache: true
+
+    - name: Allow public ports
+      community.general.ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+        comment: "{{ item.comment }}"
+      loop: "{{ firewall.allowed_ports }}"
+
+    - name: Allow k3s pod and service networks
+      community.general.ufw:
+        rule: allow
+        from_ip: "{{ item }}"
+      loop: "{{ firewall.k3s_networks }}"
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
