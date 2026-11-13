@@ -4,6 +4,10 @@
   become: true
   gather_facts: false
   tasks:
+    - name: Create k3s group
+      ansible.builtin.group:
+        name: "{{ k3s.write_kubeconfig_group }}"
+
     - name: Download and install k3s
       ansible.builtin.shell: |
         set -o pipefail
@@ -14,9 +18,11 @@
         creates: "{{ k3s.binary_path }}"
         executable: /bin/bash
 
-    - name: Create k3s group
-      ansible.builtin.group:
-        name: "{{ k3s.write_kubeconfig_group }}"
+    - name: Set k3s kubeconfig group and mode
+      ansible.builtin.file:
+        path: "{{ k3s.config_path }}"
+        group: "{{ k3s.write_kubeconfig_group }}"
+        mode: "{{ k3s.write_kubeconfig_mode }}"
 
     - name: Add user to k3s group
       ansible.builtin.user:

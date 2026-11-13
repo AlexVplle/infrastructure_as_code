@@ -44,6 +44,8 @@
       ansible.builtin.command: kubectl apply -f -
       args:
         stdin: "{{ lookup('ansible.builtin.file', playbook_dir + '/../../argocd/root-app.yaml') }}"
+      environment:
+        KUBECONFIG: "{{ kube_config_path_home }}"
       become: true
       become_user: "{{ ansible_user }}"
       register: root_app_result
