@@ -23,6 +23,10 @@ minecraftServer:
     fileId: "7659558"
     parallelDownloads: 1
 
+extraEnv:
+  OVERRIDE_WHITELIST: "true"
+  OVERRIDE_OPS: "true"
+
 envFrom:
   - secretRef:
       name: minecraft-whitelist
