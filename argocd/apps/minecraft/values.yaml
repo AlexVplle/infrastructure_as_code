@@ -20,6 +20,8 @@ minecraftServer:
     apiKey:
       existingSecret: minecraft-curseforge-api-key
     slug: ragnamod-vii
+    fileId: "7659558"
+    parallelDownloads: 1
 
 envFrom:
   - secretRef:
