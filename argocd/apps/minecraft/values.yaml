@@ -6,10 +6,20 @@ resources:
   limits:
     memory: 8Gi
 
+startupProbe:
+  enabled: true
+  failureThreshold: 120
+
 minecraftServer:
   eula: "TRUE"
+  type: AUTO_CURSEFORGE
   memory: 6G
   serviceType: LoadBalancer
+  worldSaveName: ragnamod-vii
+  autoCurseForge:
+    apiKey:
+      existingSecret: minecraft-curseforge-api-key
+    slug: ragnamod-vii
 
 envFrom:
   - secretRef:
