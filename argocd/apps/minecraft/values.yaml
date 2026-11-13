@@ -15,18 +15,15 @@ startupProbe:
 
 minecraftServer:
   eula: "TRUE"
-  type: AUTO_CURSEFORGE
+  type: FORGE
+  version: "1.18.2"
+  forgeVersion: "40.3.11"
   memory: 6G
   serviceType: LoadBalancer
   worldSaveName: ragnamod-vii
-  autoCurseForge:
-    apiKey:
-      existingSecret: minecraft-curseforge-api-key
-    slug: ragnamod-vii
-    fileId: "7659558"
-    parallelDownloads: 1
 
 extraEnv:
+  GENERIC_PACK: https://mediafilez.forgecdn.net/files/7659/582/Ragnamod-VII-7.2.1-Server.zip
   OVERRIDE_WHITELIST: "true"
   OVERRIDE_OPS: "true"
 
