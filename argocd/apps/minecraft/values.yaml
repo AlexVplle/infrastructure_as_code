@@ -1,4 +1,7 @@
 ---
+image:
+  tag: java17
+
 resources:
   requests:
     memory: 8Gi
