@@ -1,0 +1,39 @@
+---
+global:
+  tlsDisable: false
+
+injector:
+  enabled: false
+
+server:
+  extraEnvironmentVars:
+    BAO_CACERT: /openbao/tls/ca.crt
+  extraSecretEnvironmentVars:
+    - envName: BAO_STATIC_SEAL_KEY
+      secretName: openbao-static-seal
+      secretKey: key
+  volumes:
+    - name: tls
+      secret:
+        secretName: openbao-tls
+  volumeMounts:
+    - name: tls
+      mountPath: /openbao/tls
+      readOnly: true
+  dataStorage:
+    size: 1Gi
+  standalone:
+    config: |
+      listener "tcp" {
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        tls_cert_file = "/openbao/tls/tls.crt"
+        tls_key_file = "/openbao/tls/tls.key"
+      }
+      storage "pebbledb" {
+        path = "/openbao/data/pebbledb"
+      }
+      seal "static" {
+        current_key_id = "20261119-1"
+        current_key = "env://BAO_STATIC_SEAL_KEY"
+      }
