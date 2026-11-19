@@ -4,10 +4,10 @@ image:
 
 resources:
   requests:
-    memory: 8Gi
+    memory: 12Gi
     cpu: 2
   limits:
-    memory: 8Gi
+    memory: 12Gi
 
 startupProbe:
   enabled: true
@@ -18,7 +18,7 @@ minecraftServer:
   type: FORGE
   version: "1.18.2"
   forgeVersion: "40.3.11"
-  memory: 6G
+  memory: 9G
   serviceType: LoadBalancer
   worldSaveName: ragnamod-vii
 
@@ -30,6 +30,17 @@ extraEnv:
 envFrom:
   - secretRef:
       name: minecraft-whitelist
+
+sidecarContainers:
+  - name: mc-monitor
+    image: itzg/mc-monitor:1.20.1
+    args: [export-for-prometheus]
+    env:
+      - name: EXPORT_SERVERS
+        value: localhost
+    ports:
+      - name: metrics
+        containerPort: 8080
 
 persistence:
   dataDir:
