@@ -16,6 +16,9 @@ spec:
     - repoURL: https://github.com/alexvplle/infrastructure_as_code
       targetRevision: main
       ref: values
+    - repoURL: https://github.com/alexvplle/infrastructure_as_code
+      targetRevision: main
+      path: argocd/apps/minecraft/manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: minecraft
