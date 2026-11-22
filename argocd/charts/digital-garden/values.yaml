@@ -1,8 +1,8 @@
 replicaCount: 1
 image:
   repository: alexvplle/digital-garden
-  pullPolicy: Always
-  tag: "latest"
+  pullPolicy: IfNotPresent
+  tag: "main-99de4f4"
 
 service:
   type: ClusterIP
