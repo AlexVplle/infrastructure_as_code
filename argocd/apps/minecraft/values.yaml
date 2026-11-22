@@ -21,6 +21,9 @@ minecraftServer:
   memory: 9G
   serviceType: LoadBalancer
   worldSaveName: ragnamod-vii
+  modrinth:
+    projects:
+      - chunky:T7Yrm4uq
 
 extraEnv:
   GENERIC_PACK: https://mediafilez.forgecdn.net/files/7659/582/Ragnamod-VII-7.2.1-Server.zip
