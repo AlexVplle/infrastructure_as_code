@@ -1,8 +1,8 @@
 replicaCount: 1
 image:
   repository: alexvplle/personal-website
-  pullPolicy: Always
-  tag: "latest"
+  pullPolicy: IfNotPresent
+  tag: "main-1f6d71c"
 
 service:
   type: ClusterIP
