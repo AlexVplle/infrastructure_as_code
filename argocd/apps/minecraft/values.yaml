@@ -16,17 +16,18 @@ startupProbe:
 minecraftServer:
   eula: "TRUE"
   type: FORGE
-  version: "1.18.2"
-  forgeVersion: "40.3.11"
+  version: "1.20.1"
+  forgeVersion: "47.4.20"
   memory: 8G
   serviceType: LoadBalancer
-  worldSaveName: ragnamod-vii
+  worldSaveName: bettermc
   modrinth:
     projects:
-      - chunky:T7Yrm4uq
+      - chunky:4FTDk9wv
 
 extraEnv:
-  GENERIC_PACK: https://mediafilez.forgecdn.net/files/7659/582/Ragnamod-VII-7.2.1-Server.zip
+  GENERIC_PACK: https://mediafilez.forgecdn.net/files/9555/2/BMC4_ServerPack_v63hf.zip
+  SIMULATION_DISTANCE: "8"
   OVERRIDE_WHITELIST: "true"
   OVERRIDE_OPS: "true"
 
