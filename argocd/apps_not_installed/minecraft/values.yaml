@@ -4,10 +4,10 @@ image:
 
 resources:
   requests:
-    memory: 12Gi
+    memory: 10Gi
     cpu: 2
   limits:
-    memory: 12Gi
+    memory: 10Gi
 
 startupProbe:
   enabled: true
@@ -18,7 +18,7 @@ minecraftServer:
   type: FORGE
   version: "1.18.2"
   forgeVersion: "40.3.11"
-  memory: 9G
+  memory: 8G
   serviceType: LoadBalancer
   worldSaveName: ragnamod-vii
   modrinth:
